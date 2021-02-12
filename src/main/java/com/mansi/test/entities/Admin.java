@@ -3,18 +3,34 @@ package com.mansi.test.entities;
 import java.sql.Blob;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
+import com.sun.istack.NotNull;
+
 //@Component
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
 @Entity
 public class Admin 
 {	
 	//all constraints and annotations are remaining
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(length = 1)
 	private int adminId;
+	
+	@Column(length = 20)
 	private String username;
+	
+	@Column(length = 15)
+	@NotNull
 	private String password;
 	private String adminName;
 	private String contactNo;

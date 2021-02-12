@@ -284,7 +284,8 @@ public class Student
 	
 	//toString 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "Student [grNo=" + grNo + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName="
 				+ lastName + ", motherName=" + motherName + ", fatherName=" + fatherName + ", rollNo=" + rollNo
 				+ ", division=" + division + ", admissionDate=" + admissionDate + ", stream=" + stream + ", medium="
