@@ -2,37 +2,136 @@ package com.mansi.test.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 //@Component
 @Entity
 public class Student 
 {
+	@Id
+	@Column(length = 7,nullable = false)
+	@Size(max = 7)
 	private int grNo;
-	//foreign key of table standard
+	
+	//Add Constraint in below
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private Standard standardId;
+	
+	//add
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private Parent parentId;
+	
+	@Column(length = 20,nullable = false)
+	@Size(max = 20)
+	@NotNull
 	private String firstName;
+	
+	@Column(length = 20,nullable = false)
+	@Size(max = 20)
+	@NotNull
 	private String middleName;
+	
+	@Column(length = 20,nullable = false)
+	@Size(max = 20)
+	@NotNull
 	private String lastName;
+	
+	@Column(length = 20,nullable = false)
+	@Size(max = 20)
+	@NotNull
 	private String motherName;
+	
+	@Column(length = 20,nullable = false)
+	@Size(max = 20)
+	@NotNull
 	private String fatherName;
+	
+	@Column(length = 2,nullable = false)
+	@Size(min = 1,max = 2)
+	@NotNull
 	private int rollNo;
+	
+	@Column(length = 10,nullable = false)
+	@Size(min = 4,max = 10)
+	@NotNull
 	private String division;
+	
+	@Column(nullable = false)
+	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date admissionDate;
+	
+	@Column(length = 7,nullable = false)
+	@Size(min = 4,max = 7)
+	@NotNull
 	private String stream;
+	
+	@Column(length = 8,nullable = false)
+	@Size(min = 7,max = 8)
+	@NotNull
 	private String medium;
+	
+	@Column(length = 10,nullable = false)
+	@Size(max = 10)
+	@NotNull
 	private String religion;
+	
+	@Column(length = 10,nullable = false)
+	@Size(max = 10)
+	@NotNull
 	private String subCaste;
+	
+	@Column(length = 5,nullable = false)
+	@Size(min = 2,max = 5)
+	@NotNull
 	private String category;
+	
+	@Column(length = 6,nullable = false)
+	@Size(min = 4,max = 6)
+	@NotNull
 	private String gender;
+	
+	@Column(nullable = false)
+	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date dateOfBirth;
+	
+	@Column(length = 3)
+	@Size(min = 2,max = 3)
 	private String bloodGroup;
+	
+	@Column(length = 100,nullable = false)
+	@Size(max = 100)
+	@NotNull
 	private String address1;
+	
+	@Column(length = 100,nullable = false)
+	@Size(max = 100)
+	@NotNull
 	private String address2;
+	
+	@Column(length = 6,nullable = false)
+	@Size(min = 6,max = 6)
+	@NotNull
 	private int pincode;
+	
+	@Column(length = 50)
+	@Size(max = 50)
 	private String previousSchoolName;
-	//add one column of photo of student
+	
+	@Column(length = 255,nullable = false)
+	@Size(max = 255)
+	@NotNull
+	private String image;
 	
 	//getters and setters
 	public int getGrNo() 
@@ -245,14 +344,46 @@ public class Student
 		this.previousSchoolName = previousSchoolName;
 	}
 	
-	//parameterized constructor
-	public Student(int grNo, String firstName, String middleName, String lastName, String motherName, String fatherName,
-			int rollNo, String division, Date admissionDate, String stream, String medium, String religion,
-			String subCaste, String category, String gender, Date dateOfBirth, String bloodGroup, String address1,
-			String address2, int pincode, String previousSchoolName) 
-	{
+	public Standard getStandardId() {
+		return standardId;
+	}
+
+	public void setStandardId(Standard standardId) {
+		this.standardId = standardId;
+	}
+
+	public Parent getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Parent parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public Student(@Size(max = 7) int grNo, Standard standardId, Parent parentId,
+			@Size(max = 20) @NotNull String firstName, @Size(max = 20) @NotNull String middleName,
+			@Size(max = 20) @NotNull String lastName, @Size(max = 20) @NotNull String motherName,
+			@Size(max = 20) @NotNull String fatherName, @Size(min = 1, max = 2) @NotNull int rollNo,
+			@Size(min = 4, max = 10) @NotNull String division, @NotNull Date admissionDate,
+			@Size(min = 4, max = 7) @NotNull String stream, @Size(min = 7, max = 8) @NotNull String medium,
+			@Size(max = 10) @NotNull String religion, @Size(max = 10) @NotNull String subCaste,
+			@Size(min = 2, max = 5) @NotNull String category, @Size(min = 4, max = 6) @NotNull String gender,
+			@NotNull Date dateOfBirth, @Size(min = 2, max = 3) String bloodGroup,
+			@Size(max = 100) @NotNull String address1, @Size(max = 100) @NotNull String address2,
+			@Size(min = 6, max = 6) @NotNull int pincode, @Size(max = 50) String previousSchoolName,
+			@Size(max = 255) @NotNull String image) {
 		super();
 		this.grNo = grNo;
+		this.standardId = standardId;
+		this.parentId = parentId;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -273,27 +404,30 @@ public class Student
 		this.address2 = address2;
 		this.pincode = pincode;
 		this.previousSchoolName = previousSchoolName;
+		this.image = image;
 	}
-	
-	//default constructor
-	public Student() 
-	{
+
+	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	//toString 
+
 	@Override
-	public String toString() 
-	{
-		return "Student [grNo=" + grNo + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName="
-				+ lastName + ", motherName=" + motherName + ", fatherName=" + fatherName + ", rollNo=" + rollNo
-				+ ", division=" + division + ", admissionDate=" + admissionDate + ", stream=" + stream + ", medium="
-				+ medium + ", religion=" + religion + ", subCaste=" + subCaste + ", category=" + category + ", gender="
-				+ gender + ", dateOfBirth=" + dateOfBirth + ", bloodGroup=" + bloodGroup + ", address1=" + address1
-				+ ", address2=" + address2 + ", pincode=" + pincode + ", previousSchoolName=" + previousSchoolName
-				+ "]";
+	public String toString() {
+		return "Student [grNo=" + grNo + ", standardId=" + standardId + ", parentId=" + parentId + ", firstName="
+				+ firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", motherName=" + motherName
+				+ ", fatherName=" + fatherName + ", rollNo=" + rollNo + ", division=" + division + ", admissionDate="
+				+ admissionDate + ", stream=" + stream + ", medium=" + medium + ", religion=" + religion + ", subCaste="
+				+ subCaste + ", category=" + category + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth
+				+ ", bloodGroup=" + bloodGroup + ", address1=" + address1 + ", address2=" + address2 + ", pincode="
+				+ pincode + ", previousSchoolName=" + previousSchoolName + ", image=" + image + "]";
 	}
+	
+	
+
+	
+
+	
 	
 	
 }

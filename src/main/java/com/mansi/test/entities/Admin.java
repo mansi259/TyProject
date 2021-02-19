@@ -1,6 +1,5 @@
 package com.mansi.test.entities;
 
-import java.sql.Blob;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,38 +8,81 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import org.springframework.stereotype.Component;
 
-import com.sun.istack.NotNull;
 
 //@Component
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
 @Entity
 public class Admin 
 {	
-	//all constraints and annotations are remaining
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(length = 1)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(length = 1,nullable = false)
 	private int adminId;
 	
-	@Column(length = 20)
+	
+	@Column(length = 20,nullable = false,unique = true)
+	@NotNull
+	@Size(min = 4 ,max = 20)
 	private String username;
 	
-	@Column(length = 15)
+	@Column(length = 15,nullable = false)
 	@NotNull
+	@Size(min = 8,max = 15)
 	private String password;
+	
+	@Column(length = 50,nullable = false)
+	@NotNull
+	@Size(max = 50)
 	private String adminName;
+	
+	@Column(length = 10,nullable = false)
+	@NotNull
+	@Size(min = 10,max = 10)
 	private String contactNo;
-	private String emailId; 
+	
+	@Column(length = 40,nullable = false)
+	@NotNull
+	@Size(max = 40)
+	private String emailId;
+	
+	@Column(length = 6,nullable = false)
+	@Size(max = 6 , min = 4)
+	@NotNull
 	private String gender;
+	
+	@Column(length = 100,nullable = false)
+	@NotNull
+	@Size(max = 100)
 	private String address1;
+	
+	@Column(length = 100,nullable = false)
+	@NotNull
+	@Size(max=100)
 	private String address2;
+	
+	@Column(length = 6,nullable = false)
+	@NotNull
+	@Size(min = 6,max = 6)
 	private int pincode;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
+	@NotNull
 	private Date joiningDate;
-	private Blob photo;
+	
+	//i have change constraint of below field
+	@Column(length = 255,nullable = false)
+	@Size(max = 255)
+	@NotNull
+	private String image;
 	
 	//getters and setters
 	public int getAdminId() 
@@ -153,19 +195,12 @@ public class Admin
 		this.joiningDate = joiningDate;
 	}
 	
-	public Blob getPhoto()
-	{
-		return photo;
-	}
 	
-	public void setPhoto(Blob photo) 
-	{
-		this.photo = photo;
-	}
+	
 	
 	//parameterized constructor
 	public Admin(int adminId, String username, String password, String adminName, String contactNo, String emailId,
-			String gender, String address1, String address2, int pincode, Date joiningDate, Blob photo)
+			String gender, String address1, String address2, int pincode, Date joiningDate)
 	{
 		super();
 		this.adminId = adminId;
@@ -179,7 +214,7 @@ public class Admin
 		this.address2 = address2;
 		this.pincode = pincode;
 		this.joiningDate = joiningDate;
-		this.photo = photo;
+	
 	}
 	
 	//dafault constructor
@@ -195,7 +230,7 @@ public class Admin
 		return "Admin [adminId=" + adminId + ", username=" + username + ", password=" + password + ", adminName="
 				+ adminName + ", contactNo=" + contactNo + ", emailId=" + emailId + ", gender=" + gender + ", address1="
 				+ address1 + ", address2=" + address2 + ", pincode=" + pincode + ", joiningDate=" + joiningDate
-				+ ", photo=" + photo + "]";
+				;
 	}
 	
 	
